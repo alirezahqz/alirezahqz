@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+<style>
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .animated-header {
+        animation: fadeIn 1s ease-in-out;
+    }
+    .swiper .swiper-slide {
+        height: 500px;
+        max-height:300px;
+        line-height: 300px;
+    }
+    .mySwiper img {
+        width: 100%;
+        height: 300px; 
+        object-fit: contain; /* نمایش صحیح تصویر بدون تغییر نسبت‌ها */
+    }
+    
+</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js">
+
+</script>
+
+
+<header class="bg-dark py-5 shadow-lg animated-header">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-3 fw-bold text-warning">فروشگاه من</h1>
+            <p class="lead fw-semibold text-light mb-0">🔥 این جا حراجیه! 🔥</p>
+        </div>
+    </div>
+</header>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" ><img src="/static/assets/0c9face588185e62cf8b296a4f350a5395502ac1_1631507851.webp" alt="Image 1"></div>
+                <div class="swiper-slide"><img src="/static/assets/9b8b1e6faf02a4e9bec35fe260b0077bbcd3aa1c_1707937864.jpg" alt="Image 2"></div>
+                <div class="swiper-slide"><img src="/static/assets/c648ed512d93cbc45a190e8feae2ace5c057c725_1704267575.jpg" alt="Image 3"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for item in products %}
+                    {% if item.is_sale %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">تخفیف ویژه</div>
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{item.picture.url}}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ item.name }}</h5>
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                    {% with ''|center:item.star as range %}
+                                        {% for _ in range %}
+                                            <div class="bi-star-fill"></div>
+                                        {% endfor %}
+                                    {% endwith %}
+                                    </div>
+                                    <!-- Product price-->
+                                    <strike>{{ item.price | intcomma }} تومان </strike></br>
+                                    {{ item.sale_price | intcomma }} تومان 
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-dark rounded-pill shadow-lg px-4 py-2 fw-bold" href="{% url 'product' item.id %}">
+                                        🔎 مشاهده جزئیات
+                                    </a>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>s
+                    {% else %}
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <img class="card-img-top" src="{{item.picture.url}}" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">{{ item.name }}</h5>
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        {% with ''|center:item.star as range %}
+                                            {% for _ in range %}
+                                                <div class="bi-star-fill"></div>
+                                            {% endfor %}
+                                        {% endwith %}
+                                    </div>
+                                    <!-- Product price-->
+                                    {{ item.price | intcomma }} تومان
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <a class="btn btn-dark rounded-pill shadow-lg px-4 py-2 fw-bold" href="{% url 'product' item.id %}">
+                                        🔎 مشاهده جزئیات
+                                    </a>
+                                </div>
+                            </div>   
+                        </div>
+                    </div>s
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                loop: true,
+                pagination: { el: ".swiper-pagination", clickable: true },
+                navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+                autoplay: { delay: 2000 },
+                autoHeight: false,
+            });
+            
+        </script>
+</html>
+{% endblock %}

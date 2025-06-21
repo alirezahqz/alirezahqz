@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .animated-header {
+        animation: fadeIn 1s ease-in-out;
+    }
+    footer{
+        position: absolute !important;
+        right: 0!important;
+        left: 0!important;
+        bottom: 0!important;
+    }
+</style>
+
+<header class="bg-dark py-5 shadow-lg animated-header">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-3 fw-bold text-warning"> دسته بندی محصولات </h1>
+            <p class="lead fw-semibold text-light mb-0">🔥 این جا حراجیه! 🔥</p>
+        </div>
+    </div>
+</header>
+</b></br>
+<section class="py-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="list-group">
+                    {% for cat in category %}
+                        <a href="{% url 'category' cat.name %}" class="list-group-item list-group-item-action text-center fw-bold">
+                            {{ cat.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

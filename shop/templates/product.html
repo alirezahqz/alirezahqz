@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+{% load humanize %}
+<style>
+
+  footer{
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+</style>
+</b></br>
+<div class="container">
+    <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ product.picture.url }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.description }}</p>
+
+              {% if product.is_sale %}
+              <p class="card-text"> قیمت : <strike> {{ product.price | intcomma }} </strike> ~ {{ product.sale_price | intcomma }}</p>
+              {% else %}
+              <p class="card-text"> قیمت : {{ product.price | intcomma }}</p>
+              {% endif %}
+
+
+              <p class="card-text fw-bold text-success"> تعداد :
+                <select class="form-select border border-warning rounded-3 shadow-sm p-2 text-center bg-light" id='cart-qty'>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+              </p>
+            
+              <br><br>
+
+              <button class="btn btn-success rounded-pill shadow-lg px-4 py-2 text-light fw-bold" type="button" value="{{ product.id }}" id="add-cart">
+                🛒 افزودن به سبد خرید
+              </button>
+              <a href="{% url 'home' %}" class="btn btn-outline-primary rounded-pill shadow-lg px-4 py-2">
+                ⬅️ بازگشت به صفحه اصلی
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<script>
+  $(document).on('click', '#add-cart', function(e){
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '{% url 'cart_add' %}',
+      data:{
+        product_id : $('#add-cart').val(),
+        product_qty : $('#cart-qty option:selected').text(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+
+      success: function(json){
+        //console.log(json)
+        document.getElementById('cart_quantity').textContent = json.qty
+        location.reload();
+      },
+
+      error: function(xhr, errmsg, err){
+
+      }
+    })
+  })
+</script>
+{% endblock %}

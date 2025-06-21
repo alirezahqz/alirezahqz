@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .animated-header {
+        animation: fadeIn 1s ease-in-out;
+    }
+</style>
+
+<header class="bg-dark py-5 shadow-lg animated-header">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-3 fw-bold text-warning"> اطلاعات کاربری</h1>
+            <p class="lead fw-semibold text-light mb-0">اطلاعات خود را تکمیل کنید</p>
+        </div>
+    </div>
+</header>
+
+</b></br>
+
+<div class="container animated-form">
+    <div class="row justify-content-center">
+        <div class="col-10">  
+            <form method="POST" action="{% url 'update_info' %}" class="p-4 border rounded-3 shadow-lg bg-light">
+                {% csrf_token %}
+                <h2 class="text-center text-primary fw-bold mb-4">  ویرایش پروفایل </h2>
+                <strong>اطلاعات کاربری</strong>
+                <br><br>
+                <div class="mb-3">
+                    {{ form.as_p }}
+                    <br><br>
+                    <strong>اطلاعات ارسال</strong>
+                    <br><br>
+                    {{ Shipping_form.as_p }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success rounded-pill px-4 py-2 fw-bold shadow-sm">📝  ثبت اطلاعات </button>
+                    <br><br>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}
