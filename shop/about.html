@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>درباره ما</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="wrapper">
+    <div id="load-header"></div>
+
+    <main>
+      <section class="about-section">
+        <h2>درباره من</h2>
+        <p>من <strong>علیرضا حیدر قلی‌زاده</strong>، دانشجوی مهندسی کامپیوتر دانشگاه رازی هستم.</p>
+        <p>ورودی سال <strong>۱۴۰۰</strong> با شماره دانشجویی <strong>4009033006</strong>.</p>
+        <p>این پروژه به عنوان بخشی از تمرین‌های طراحی فروشگاه اینترنتی توسعه داده شده است و شامل دسته‌بندی‌ محصولات، مدیریت سبد خرید و تعامل با کاربر از طریق JavaScript , css و HTML است.</p>
+
+        <h3>ارتباط با من</h3>
+        <div class="center-container">
+            <ul class="contact-icons">
+              <li><a href="mailto:qhydrqlyzadh@gmail.com">
+                <img src="images/Untitled.png" alt="Email" width="32" height="32">
+              </a></li>
+              <li><a href="https://t.me/Alireza_h_q_z" target="_blank">
+                <img src="images/telegram.jpg" alt="Telegram" width="32" height="32">
+              </a></li>
+              <li><a href="https://instagram.com/alireza_h.q.z" target="_blank">
+                <img src="images/instagram.jpg" alt="Instagram" width="32" height="32">
+              </a></li>
+            </ul>
+        </div>
+          
+          
+      </section>
+    </main>
+
+    <div id="load-footer"></div>
+  </div>
+
+  <script type="module" src="shop.js"></script>
+
+  <script>
+    fetch("header.html")
+      .then(r => r.text())
+      .then(t => {
+        document.getElementById("load-header").innerHTML = t;
+        setTimeout(updateCartCount, 50);
+      });
+
+    fetch("footer.html")
+      .then(r => r.text())
+      .then(t => document.getElementById("load-footer").innerHTML = t);
+  </script>
+
+</body>
+</html>
+
+  

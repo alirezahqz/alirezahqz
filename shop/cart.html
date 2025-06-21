@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <title>سبد خرید</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body dir="rtl">
+    <div class="wrapper">
+        <div id="load-header"></div>
+
+        <main>
+            <h2>سبد خرید شما</h2>
+            <ul id="cart-items" class="cart-list"></ul>
+            <p id="empty-cart" style="display:none;">سبد خرید شما خالی است.</p>
+            <p id="total-price">مجموع: ۰ تومان</p>
+            <button id="checkout" style="background: green; color: white; padding: 10px 20px; margin-top: 20px; font-size: 16px; border: none; border-radius: 6px; cursor: pointer;">
+                پرداخت نهایی
+            </button>      
+            <button id="clear-cart">خالی کردن سبد</button>
+        </main>
+        <div id="load-footer"></div>
+    </div>
+  <script type="module" src="shop.js"></script>
+
+
+  <script>
+    fetch("header.html")
+      .then(r => r.text())
+      .then(t => {
+        document.getElementById("load-header").innerHTML = t;
+        setTimeout(updateCartCount, 50);
+      });
+
+    fetch("footer.html")
+      .then(r => r.text())
+      .then(t => document.getElementById("load-footer").innerHTML = t);
+  </script>
+</body>
+</html>

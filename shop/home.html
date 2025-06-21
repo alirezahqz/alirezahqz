@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>فروشگاه من</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <div id="load-header"></div>
+    <main>
+      <h2>محصولات ما</h2>
+
+      <section class="product-grid">
+
+        <!-- محصول ۱ -->
+        <div class="product-card">
+          <img src="images/scrab.webp" alt="اسکراب صورت" />
+          <h3>اسکراب صورت</h3>
+          <p class="price">۲۵۰٬۰۰۰ تومان</p>
+
+          <div class="qty-control">
+            <button onclick="changeTempQty('product1', -1)">➖</button>
+            <span id="temp-qty-product1">1</span>
+            <button onclick="changeTempQty('product1', 1)">➕</button>
+          </div>
+
+          <button onclick="addToCartWithQty('اسکراب صورت', 250000, 'product1')">
+            افزودن به سبد خرید
+          </button>
+        </div>
+
+        <!-- محصول ۲ -->
+        <div class="product-card">
+          <img src="images/digital.webp" alt="فشارسنج" />
+          <h3>فشارسنج</h3>
+          <p class="price">۳۸۰٬۰۰۰ تومان</p>
+
+          <div class="qty-control">
+            <button onclick="changeTempQty('product2', -1)">➖</button>
+            <span id="temp-qty-product2">1</span>
+            <button onclick="changeTempQty('product2', 1)">➕</button>
+          </div>
+
+          <button onclick="addToCartWithQty('فشارسنج', 380000, 'product2')">
+            افزودن به سبد خرید
+          </button>
+        </div>
+
+        <!-- محصول ۳ -->
+        <div class="product-card">
+          <img src="images/dunhill.webp" alt="عطر" />
+          <h3>عطر</h3>
+          <p class="price">۸۵۰٬۰۰۰ تومان</p>
+
+          <div class="qty-control">
+            <button onclick="changeTempQty('product3', -1)">➖</button>
+            <span id="temp-qty-product3">1</span>
+            <button onclick="changeTempQty('product3', 1)">➕</button>
+          </div>
+
+          <button onclick="addToCartWithQty('عطر', 850000, 'product3')">
+            افزودن به سبد خرید
+          </button>
+        </div>
+
+        <!-- محصول 4 -->
+        <div class="product-card">
+          <img src="images/shoes.webp" alt="کفش" />
+          <h3>کفش</h3>
+          <p class="price">۸۰۰٬۰۰۰ تومان</p>
+
+          <div class="qty-control">
+            <button onclick="changeTempQty('product4', -1)">➖</button>
+            <span id="temp-qty-product4">1</span>
+            <button onclick="changeTempQty('product4', 1)">➕</button>
+          </div>
+
+          <button onclick="addToCartWithQty('کفش', 380000, 'product4')">
+            افزودن به سبد خرید
+          </button>
+        </div>
+
+      </section>
+    </main>
+
+    <div id="load-footer"></div>
+  </div>
+
+
+  <script type="module" src="shop.js"></script>
+
+  <script>
+    fetch("header.html")
+      .then(r => r.text())
+      .then(t => {
+        document.getElementById("load-header").innerHTML = t;
+        setTimeout(updateCartCount, 50);
+      });
+
+    fetch("footer.html")
+      .then(r => r.text())
+      .then(t => document.getElementById("load-footer").innerHTML = t);
+  </script>
+</body>
+</html>
